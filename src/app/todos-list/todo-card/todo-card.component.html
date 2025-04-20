@@ -1,6 +1,6 @@
 <div class="todo-list">
   <p>ТЕКСТ С ЗАДАЧАМИ</p>
-  <p>{{ todo.title }}</p>
+  <p>{{ todo.title | truncate : 20 }}</p>
   <p>Автор Задачи</p>
   <p>{{ todo.userId }}</p>
   <p>ЗАДАЧА ЗАВЕРШЕНА</p>

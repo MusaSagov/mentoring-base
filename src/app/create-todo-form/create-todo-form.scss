@@ -1,0 +1,27 @@
+.wrapper {
+  margin: 0 0 30px 0;
+  border: 1px solid rgb(150, 195, 216);
+  width: 300px;
+  padding: 30px;
+}
+
+.form-create {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+}
+
+.mat {
+  width: 280px;
+}
+
+.btn {
+  width: 260px;
+  margin-top: 20px;
+}
+
+.alert {
+  color: red;
+}

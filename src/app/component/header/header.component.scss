@@ -35,14 +35,26 @@
 .header__right {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
 
 .header__nav {
   display: flex;
   gap: 24px;
 }
-
+.btn {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.button {
+  color: #fff;
+  background-color: inherit;
+  border: 1px solid #f0ba4e;
+  font-weight: 500;
+  border-radius: 50px;
+  padding: 10px;
+}
 .header__nav-item {
   cursor: pointer;
 }

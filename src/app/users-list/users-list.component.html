@@ -1,10 +1,14 @@
 <div class="container">
-  <h1>КОМПОНЕНТ СПИСКА ЮЗЕРА</h1>
+  <app-create-user-for
+    (createUser)="createUser($event)"
+    (createUserDialog)="createUserDialog($event)"
+  ></app-create-user-for>
   <div class="users-list">
     <div class="user-list" *ngFor="let user of usersService.users$ | async">
       <app-user-card
         [user]="user"
         (deleteUser)="deleteUser($event)"
+        (editUser)="editUser($event)"
       ></app-user-card>
     </div>
   </div>

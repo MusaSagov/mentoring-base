@@ -1,5 +1,7 @@
 <div class="container">
-  <h1>КОМПОНЕНТ СПИСКА ЗАДАЧ</h1>
+  <app-create-todo-form
+    (createTodo)="createTodo($event)"
+  ></app-create-todo-form>
   <div class="todos-list">
     <div class="todo-list" *ngFor="let todo of todosService.todos$ | async">
       <app-todo-card

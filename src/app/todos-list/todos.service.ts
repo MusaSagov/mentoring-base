@@ -7,7 +7,7 @@ export class TodosService {
   private todosSubject$ = new BehaviorSubject<Todo[]>([]);
   todos$ = this.todosSubject$.asObservable();
   setTodos(todos: Todo[]) {
-    this.todosSubject$.next(todos);
+    this.todosSubject$.next(todos.slice(0, 10));
   }
 
   editTodo(editedTodo: Todo) {
@@ -23,7 +23,16 @@ export class TodosService {
   }
 
   createTodo(todo: Todo) {
-    this.todosSubject$.next([...this.todosSubject$.value, todo]);
+    const existingTodo = this.todosSubject$.value.find(
+      (currentElement) => currentElement.title === todo.title
+    );
+
+    if (existingTodo !== undefined) {
+      alert("задание уже есть");
+    } else {
+      this.todosSubject$.next([...this.todosSubject$.value, todo]);
+      alert(" новое задание добавлено");
+    }
   }
 
   deleteTodo(id: number) {

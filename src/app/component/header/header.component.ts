@@ -1,6 +1,10 @@
-import { NgFor, NgIf } from "@angular/common";
-import { Component } from "@angular/core";
+import { AsyncPipe, DatePipe, NgFor, NgIf } from "@angular/common";
+import { Component, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
+import { YellowDirective } from "../../directives/basket.directive";
+import { MatDialog } from "@angular/material/dialog";
+import { AuthComponent } from "../../auth/auth.component";
+import { UserService } from "../../user.service";
 
 const menuItems = [
   "Каталог",
@@ -27,7 +31,15 @@ const upperPagesItems = newPages.map((item) => {
 @Component({
   selector: "app-header",
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [
+    NgFor,
+    NgIf,
+    RouterLink,
+    DatePipe,
+    YellowDirective,
+    NgIf,
+    AsyncPipe,
+  ],
   templateUrl: "./header.component.html",
   styleUrl: "./header.component.scss",
 })
@@ -36,6 +48,10 @@ export class HeaderComponent {
 
   isShowCatalog = false;
   isShowBackground = true;
+
+  currentDate: Date = new Date();
+  private readonly dialog = inject(MatDialog);
+  public readonly userService = inject(UserService);
 
   readonly headerItem1 = "Главная";
   readonly headerItem2 = "О компании";
@@ -59,5 +75,28 @@ export class HeaderComponent {
       this.isUpperCase ? item.toLowerCase() : item.toUpperCase()
     );
     this.isUpperCase = !this.isUpperCase;
+  }
+
+  public openDialog(): void {
+    const dialogRef = this.dialog.open(AuthComponent, {
+      width: "400px",
+      height: "200px",
+    });
+
+    dialogRef.afterClosed().subscribe((result: string) => {
+      console.log("результат подписки после диалог.окна --", result);
+      if (result === "admin") {
+        this.userService.loginAsAdmin;
+      } else if (result === "user") {
+        this.userService.loginAsUser;
+      } else return undefined;
+    });
+  }
+
+  public logout() {
+    if (confirm("Вы точно хотите выйти?")) {
+      console.log("совершили logout");
+      return this.userService.logout();
+    } else return false;
   }
 }

@@ -1,0 +1,30 @@
+<form class="form-create" [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Введите имя пользователя</mat-label>
+    <input matInput formControlName="name" />
+    <mat-error>Некорректное значение </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Введите Email</mat-label>
+    <input matInput formControlName="email" />
+    <mat-error>Email введен неправльно </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Введите Website</mat-label>
+    <input matInput formControlName="website" />
+    <mat-error>введен неправльно </mat-error>
+  </mat-form-field>
+
+  <mat-form-field formGroupName="company">
+    <mat-label>Введите Company name:</mat-label>
+    <input matInput formControlName="name" />
+    <mat-error>введен неправльно </mat-error>
+  </mat-form-field>
+
+  <button matIconSuffix mat-raised-button [mat-dialog-close]="form.value">
+    Add user
+    <mat-icon>add</mat-icon>
+  </button>
+</form>

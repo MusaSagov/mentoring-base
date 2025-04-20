@@ -1,7 +1,15 @@
 <div class="user-list">
-  <p>{{ user.name }}</p>
-  <p>{{ user.email }}</p>
-  <p>{{ user.website }}</p>
-  <p>{{ user.company.name }}</p>
-  <button class="btn" (click)="onDeleteUser(user.id)">Удалить ЮЗЕРА</button>
+  <p appHoverShadow>{{ user.name | customUpperCase }}</p>
+  <p red appHoverShadow>{{ user.email | customUpperCase }}</p>
+  <p appHoverShadow>{{ user.website | customUpperCase }}</p>
+  <p red appHoverShadow>{{ user.company.name }}</p>
+  <button red class="btn" (click)="openDelDialog()">Удалить ЮЗЕРА</button>
+  <button
+    red
+    class="btn"
+    (click)="openDialog()"
+    matTooltip="Редактировать данные пользователя"
+  >
+    Редактировать ЮЗЕРА
+  </button>
 </div>
