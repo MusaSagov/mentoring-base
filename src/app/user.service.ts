@@ -15,26 +15,23 @@ export class UserService {
   public readonly user$ = this.userSubject$.asObservable();
 
   private user: IUser = {
-    name: "Ильнур",
-    email: "Ряжапов",
+    name: "Musa",
+    email: "Sagov82@mail.ru",
     isAdmin: null,
   };
 
-  loginAsAdmin() {
+  public loginAsAdmin() {
     this.userSubject$.next({ ...this.user, isAdmin: true });
-    console.log("Вошли как админ");
   }
 
-  loginAsUser() {
+  public loginAsUser() {
     this.userSubject$.next({ ...this.user, isAdmin: false });
-    console.log("Вошли как пользователь");
   }
 
-  get isAdmin() {
+  public isAdmin() {
     return this.userSubject$.value?.isAdmin;
   }
-  logout() {
+  public logout() {
     this.userSubject$.next(null);
-    console.log(this.userSubject$);
   }
 }

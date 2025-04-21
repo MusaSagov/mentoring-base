@@ -7,6 +7,9 @@ import { UserCardComponent } from "./user-card/user-card.component";
 import { UsersService } from "../users.service";
 import { CreateUserForm } from "../create-user-form/create-user-form.component";
 
+interface EditableUser extends User {
+  companyName: string;
+}
 @Component({
   selector: "app-users-list",
   templateUrl: "./users-list.component.html",
@@ -27,41 +30,39 @@ export class UsersListComponent {
     this.usersService.users$.subscribe((users) => console.log(users));
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: number): void {
     this.usersService.deleteUser(id);
   }
 
-  editUser(user: any) {
+  editUser(user: EditableUser) {
     this.usersService.editUser({
       ...user,
       company: {
         name: user.companyName,
       },
     });
-    console.log(user);
   }
 
-  public createUser(formData: any) {
+  public createUser(formData: CreateUser) {
     this.usersService.createUser({
       id: new Date().getTime(),
       name: formData.name,
       email: formData.email,
       website: formData.website,
       company: {
-        name: formData.companyName,
+        name: formData.company.name,
       },
     });
-    console.log(formData);
   }
 
-  createUserDialog(formData: any) {
+  createUserDialog(formData: CreateUser) {
     this.usersService.createUser({
       id: new Date().getTime(),
-      name: formData.user,
+      name: formData.name,
       email: formData.email,
       website: formData.website,
       company: {
-        name: formData.companyName,
+        name: formData.company.name,
       },
     });
   }

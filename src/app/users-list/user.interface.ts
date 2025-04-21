@@ -23,3 +23,7 @@ export interface CreateUser {
     bs?: string;
   };
 }
+
+interface EditableUser extends User {
+  companyName: string;
+}
