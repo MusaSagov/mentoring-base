@@ -84,7 +84,6 @@ export class HeaderComponent {
     });
 
     dialogRef.afterClosed().subscribe((result: string) => {
-      console.log("результат подписки после диалог.окна --", result);
       if (result === "admin") {
         this.userService.loginAsAdmin;
       } else if (result === "user") {
