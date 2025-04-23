@@ -6,6 +6,7 @@ import { Todo } from "./todo.interface";
 import { TodosService } from "./todos.service";
 import { CreateTodoComponent } from "../create-todo-form/create-todo-form.component";
 import { TruncatePipe } from "../pipes/truncate.pipe";
+import { CreateTodo } from "../create-todo-form/todo.interface";
 
 @Component({
   selector: "app-todos-list",
@@ -23,23 +24,22 @@ export class TodosListComponent {
     this.todosApiService
       .getTodos()
       .pipe()
-      .subscribe((response: any) => {
+      .subscribe((response: Todo[]) => {
         this.todosService.setTodos(response);
       });
 
-    this.todosService.todos$.subscribe((todos) => console.log(todos));
+    this.todosService.todos$.subscribe((todos: Todo[]) => console.log(todos));
   }
 
-  public createTodo(formData: any) {
+  public createTodo(formData: CreateTodo): void {
     this.todosService.createTodo({
       id: new Date().getTime(),
       title: formData.title,
-      userId: formData.userId,
+      userId: Number(formData.userId),
       completed: formData.completed,
     });
-    console.log("Данные формы: ", event);
   }
-  deleteTodo(id: number) {
+  deleteTodo(id: number): void {
     this.todosService.deleteTodo(id);
   }
 }

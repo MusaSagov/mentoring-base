@@ -13,6 +13,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import { CreateTodo } from "./todo.interface";
 
 export function completedValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -40,12 +41,15 @@ export function completedValidator(): ValidatorFn {
 })
 export class CreateTodoComponent {
   @Output()
-  createTodo = new EventEmitter();
+  createTodo = new EventEmitter<CreateTodo>();
 
   public form = new FormGroup({
-    title: new FormControl(" ", [Validators.required, Validators.minLength(3)]),
-    userId: new FormControl(" ", [Validators.required]),
-    completed: new FormControl(" ", [
+    title: new FormControl<string>(" ", [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    userId: new FormControl<string>(" ", [Validators.required]),
+    completed: new FormControl<string>(" ", [
       Validators.required,
       completedValidator(),
     ]),
@@ -53,15 +57,16 @@ export class CreateTodoComponent {
 
   private getCompletedValue(): boolean {
     const value = this.form.get("completed")?.value!.trim().toLowerCase();
-    if (value === "да") return true;
-    else return false;
+    return value === "да" ? true : false;
   }
 
-  public submitForm() {
-    this.createTodo.emit({
-      ...this.form.value,
+  public submitForm(): void {
+    const todo: CreateTodo = {
+      title: this.form.value.title?.trim() ?? "",
+      userId: this.form.value.userId?.trim() ?? "",
       completed: this.getCompletedValue(),
-    });
+    };
+    this.createTodo.emit(todo);
     this.form.reset();
   }
 }

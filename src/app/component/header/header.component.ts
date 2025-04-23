@@ -95,7 +95,6 @@ export class HeaderComponent {
 
   public logout() {
     if (confirm("Вы точно хотите выйти?")) {
-      console.log("совершили logout");
       return this.userService.logout();
     } else return false;
   }

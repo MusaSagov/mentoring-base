@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class RemoveDashesPipe implements PipeTransform {
   transform(value: string): string {
-    if (!value) return value; // Если значение пустое, возвращаем его как есть
-    return value.replace(/-/g, ""); // Удаляем все черточки
+    return !value ? value : value.replace(/-/g, "");
   }
 }

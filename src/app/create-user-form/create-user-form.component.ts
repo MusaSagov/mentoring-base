@@ -53,7 +53,6 @@ export class CreateUserForm {
     const dialogRef = this.dialog.open(CreateUserDialogComponent, {
       data: { form: this.form.value },
     });
-
     dialogRef.afterClosed().subscribe((createResult) => {
       console.log("Модалка закрыта, значение формы:", createResult);
       this.createUserDialog.emit(createResult);

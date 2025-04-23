@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TruncatePipe } from "../../pipes/truncate.pipe";
+import { Todo } from "../todo.interface";
+import { CreateTodo } from "../../create-todo-form/todo.interface";
 
 @Component({
   selector: "app-todo-card",
@@ -11,9 +13,10 @@ import { TruncatePipe } from "../../pipes/truncate.pipe";
 export class TodoCardComponent {
   @Input()
   todo: any;
-
   @Output()
-  deleteTodo = new EventEmitter();
+  createTodo = new EventEmitter<CreateTodo>();
+  @Output()
+  deleteTodo = new EventEmitter<number>();
 
   onDeleteTodo(todoId: number) {
     this.deleteTodo.emit(todoId);
