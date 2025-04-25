@@ -6,6 +6,9 @@ import { UsersApiService } from "../users-api.service";
 import { UserCardComponent } from "./user-card/user-card.component";
 import { UsersService } from "../users.service";
 import { CreateUserForm } from "../create-user-form/create-user-form.component";
+import { Store } from "@ngrx/store";
+import { UsersActions } from "./store/user.actions";
+import { selectUsers } from "./store/users.selectors";
 
 interface EditableUser extends User {
   companyName: string;
@@ -20,50 +23,52 @@ interface EditableUser extends User {
 })
 export class UsersListComponent {
   readonly usersApiService = inject(UsersApiService);
-  readonly usersService = inject(UsersService);
+  private readonly store = inject(Store);
+  public readonly users$ = this.store.select(selectUsers);
 
   constructor() {
     this.usersApiService.getUsers().subscribe((response: any) => {
-      this.usersService.setUsers(response);
+      this.store.dispatch(UsersActions.set({ users: response }));
     });
-
-    this.usersService.users$.subscribe((users) => console.log(users));
   }
 
   deleteUser(id: number): void {
-    this.usersService.deleteUser(id);
+    this.store.dispatch(UsersActions.delete({ id }));
   }
 
   editUser(user: EditableUser) {
-    this.usersService.editUser({
-      ...user,
-      company: {
-        name: user.companyName,
-      },
-    });
+    this.store.dispatch(UsersActions.edit({ user }));
   }
 
   public createUser(formData: CreateUser) {
-    this.usersService.createUser({
-      id: new Date().getTime(),
-      name: formData.name,
-      email: formData.email,
-      website: formData.website,
-      company: {
-        name: formData.company.name,
-      },
-    });
+    this.store.dispatch(
+      UsersActions.create({
+        user: {
+          id: new Date().getTime(),
+          name: formData.name,
+          email: formData.email,
+          website: formData.website,
+          company: {
+            name: formData.company.name,
+          },
+        },
+      })
+    );
   }
 
   createUserDialog(formData: CreateUser) {
-    this.usersService.createUser({
-      id: new Date().getTime(),
-      name: formData.name,
-      email: formData.email,
-      website: formData.website,
-      company: {
-        name: formData.company.name,
-      },
-    });
+    this.store.dispatch(
+      UsersActions.create({
+        user: {
+          id: new Date().getTime(),
+          name: formData.name,
+          email: formData.email,
+          website: formData.website,
+          company: {
+            name: formData.company.name,
+          },
+        },
+      })
+    );
   }
 }
