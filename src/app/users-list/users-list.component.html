@@ -1,7 +1,7 @@
 <div class="container">
   <app-create-user-for
     (createUser)="createUser($event)"
-    (createUserDialog)="createUserDialog($event)"
+    (createUserDialog)="createUser($event)"
   ></app-create-user-for>
   <div class="users-list">
     <div class="user-list" *ngFor="let user of users$ | async">

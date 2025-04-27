@@ -40,23 +40,7 @@ export class UsersListComponent {
     this.store.dispatch(UsersActions.edit({ user }));
   }
 
-  public createUser(formData: CreateUser) {
-    this.store.dispatch(
-      UsersActions.create({
-        user: {
-          id: new Date().getTime(),
-          name: formData.name,
-          email: formData.email,
-          website: formData.website,
-          company: {
-            name: formData.company.name,
-          },
-        },
-      })
-    );
-  }
-
-  createUserDialog(formData: CreateUser) {
+  public createUser(formData: CreateUser): void {
     this.store.dispatch(
       UsersActions.create({
         user: {
